@@ -1,0 +1,1 @@
+docker run -e APP_RETROFIT_BASE_URL=http://host.docker.internal:9098/ --network=bridge -p 9099:9099 --name creditcard creditcard:latest

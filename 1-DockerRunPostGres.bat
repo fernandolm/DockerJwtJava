@@ -1,0 +1,1 @@
+docker run -e POSTGRES_USER=test_user -e POSTGRES_PASSWORD=test_password -e POSTGRES_DB=TicketDatabase --network=bridge -p 5432:5432 --name db postgres:latest
