@@ -7,6 +7,10 @@
 - TicketReceiver: Container com a aplicação que possui os endpoints /login, /log e /client. Está localizada na porta 9099;
 - CreditCard: Container com a aplicação que gera informações de cartões de crédito para o endpoint /log. Está localizada na porta 9098.
 
+## Java
+- A versão de java utilizada é a 11;
+- Deve-se compilar as aplicações para gerar o jar antes de construir as imagens no docker. O GitHub não permitiu o upload de arquivos maiores que 25mb.
+
 ## Instalação
 
 1. Baixar a imagem do postgres com o comando: docker pull postgres;
