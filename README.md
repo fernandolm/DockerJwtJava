@@ -9,7 +9,7 @@
 
 ## Java
 - A versão de java utilizada é a 11;
-- Deve-se compilar as aplicações para gerar o jar antes de construir as imagens no docker. O GitHub não permitiu o upload de arquivos maiores que 25mb.
+- Deve-se compilar as aplicações com o comando mvn clean install para gerar o jar antes de construir as imagens no docker. O GitHub não permitiu o upload de arquivos maiores que 25mb.
 
 ## Instalação
 
