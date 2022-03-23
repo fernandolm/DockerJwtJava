@@ -26,6 +26,11 @@
 ;
 3.Executar o bat 4-DockerRunCreditCard.bat ou o comando docker run -e APP_RETROFIT_BASE_URL=http://host.docker.internal:9098/ --network=bridge -p 9099:9099 --name creditcard creditcard:latest
 
+## Método alternativo: Docker-compose
+
+- Alternativamente, é possível executar um docker-compose utilizando o bat DockerComposeUP.bat que fará a leitura do arquivo docker-compose.yml ao invés de todo o processo acima.
+- O bat DockerComposeDown.bat deve ser executado para encerrar os containers e removê-los da memória.
+
 ## Testes
 
 1. Pode-se abrir o swagger pelo endereço: http://localhost:9098/swagger-ui/index.html;
