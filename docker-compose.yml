@@ -1,0 +1,66 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: TicketDatabase
+    ports:
+      - '5432:5432'
+    networks:
+      - test-network
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U test_user -d TicketDatabase
+      interval: 8s
+      timeout: 5s
+      retries: 5
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8081:8080'
+    networks:
+      - test-network
+    depends_on:
+      db:
+        condition: service_healthy
+  receiver:
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/TicketDatabase
+    build:
+      context: ./ticketreceiver/
+      dockerfile: /Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - '9098:9098'
+    networks:
+      - test-network
+    healthcheck:
+      test: "curl --fail --silent localhost:9098/actuator/health | grep UP || exit 1"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+  creditcard:
+    environment:
+      APP_RETROFIT_BASE_URL: http://host.docker.internal:9098/
+    build:
+      context: ./creditcard/
+      dockerfile: /Dockerfile
+    depends_on:
+      receiver:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - '9099:9099'
+    networks:
+      - test-network
+networks:
+  test-network:
+    driver: bridge
